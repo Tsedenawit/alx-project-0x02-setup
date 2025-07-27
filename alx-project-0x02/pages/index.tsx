@@ -1,13 +1,10 @@
-import Header from "@/components/layout/Header";
-
-export default function Home() {
+const Home: React.FC = () => {
   return (
     <div>
-      <Header />
-      <p className="p-50 text-2xl font-bold text-center">
-        
-        Welcome to our AirBnb Space
-      </p>
+      <h1>Welcome to Next.js</h1>
+      <p>This is basic starter page</p>
     </div>
   );
-}
+};
+
+export default Home;

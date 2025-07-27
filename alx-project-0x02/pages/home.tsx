@@ -1,46 +1,49 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import Card from "../components/common/Card";
+import PostModal from "../components/common/PostModal";
 import Header from "@/components/layout/Header";
-import PostModal from "@/components/common/PostModal";
-import { PostData } from "@/interfaces";
 
-const HomePage: React.FC = () => {
+interface Post {
+  title: string;
+  content: string;
+}
+
+export default function HomePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [posts, setPosts] = useState<Post[]>([]);
 
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
-
-  const handlePostSubmit = (post: PostData) => {
-    console.log("Submitted Post:", post);
-    // TODO: You can add logic to save to an API or local state
+  const handleAddPost = (title: string, content: string) => {
+    setPosts([...posts, { title, content }]);
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-
-      <div className="max-w-2xl mx-auto mt-12 p-6 bg-white shadow-md rounded-lg">
-        <div className="text-center mb-8">
+    <>
+      <div>
+        <Header />
+      </div>
+      <div className="p-8">
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-3xl font-bold">Home Page</h1>
           <button
-            onClick={handleOpenModal}
-            className="px-6 py-2 bg-blue-600 text-white rounded-full font-medium hover:bg-blue-700 transition duration-200"
+            onClick={() => setIsModalOpen(true)}
+            className="px-4 py-2 bg-blue-500 text-white rounded"
           >
-            Create New Post
+            Add Post
           </button>
         </div>
 
-        <h1 className="text-3xl font-semibold text-center text-gray-800">
-          Welcome to the Home Page
-        </h1>
-        <p className="mt-2 text-center text-gray-600">
-          Click the button above to create a new post.
-        </p>
+        <div className="flex flex-wrap">
+          {posts.map((post, index) => (
+            <Card key={index} title={post.title} content={post.content} />
+          ))}
+        </div>
+
+        <PostModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSubmit={handleAddPost}
+        />
       </div>
-
-      {isModalOpen && (
-        <PostModal onClose={handleCloseModal} onSubmit={handlePostSubmit} />
-      )}
-    </div>
+    </>
   );
-};
-
-export default HomePage;
+}

@@ -1,27 +1,55 @@
-import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Header: React.FC = () => {
+  const router = useRouter();
+
+  const isActive = (path: string) => router.pathname === path;
+
   return (
-    <header className="flex items-center justify-between px-6 py-4 bg-white shadow-md">
-      <div className="text-2xl font-bold text-gray-800">
-        <Link href="/">StayEase</Link>
-      </div>
+    <header>
+      <h1>My Application Header</h1>
       <nav>
+        <div className="font-bold text-xl">MyApp</div>
         <ul className="flex space-x-6">
           <li>
-            <Link href="/home" className="text-gray-700 hover:text-blue-600 transition-colors">
+            <Link
+              href="/home"
+              className={`hover:underline ${
+                isActive("/home") ? "font-bold" : ""
+              }`}
+            >
               Home
             </Link>
           </li>
           <li>
-            <Link href="/about" className="text-gray-700 hover:text-blue-600 transition-colors">
+            <Link
+              href="/about"
+              className={`hover:underline ${
+                isActive("/about") ? "font-bold" : ""
+              }`}
+            >
               About
             </Link>
           </li>
           <li>
-            <Link href="/posts" className="text-gray-700 hover:text-blue-600 transition-colors">
+            <Link
+              href="/posts"
+              className={`hover:underline ${
+                isActive("/post") ? "font-bold" : ""
+              }`}
+            >
               Posts
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/posts"
+              className={`hover:underline ${
+                isActive("/user") ? "font-bold" : ""
+              }`}
+            >
+              User
             </Link>
           </li>
         </ul>

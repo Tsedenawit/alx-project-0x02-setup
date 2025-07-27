@@ -1,13 +1,12 @@
-import React from "react";
-import { type UserProps } from "@/interfaces";
+import { UserProps } from "@/interfaces";
 
-const UserCard: React.FC<UserProps> = ({ name, email, address }) => {
+const UserCard: React.FC<UserProps> = ({ id, name, email, address }) => {
   return (
-    <div className="border rounded-lg shadow-md p-4 bg-white">
-      <h2 className="text-xl font-semibold text-gray-800 mb-2">{name}</h2>
+    <div className="border rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
+      <h3 className="text-xl font-semibold mb-2">{name}</h3>
       <p className="text-gray-600 mb-1">{email}</p>
       <p className="text-sm text-gray-500">
-        {address.street}, {address.suite}, {address.city} - {address.zipcode}
+        {address.street}, {address.city}
       </p>
     </div>
   );
